@@ -1,0 +1,12 @@
+% layout 'bootstrap';
+%= form_for login => { method => 'POST' } => begin
+	% if (param 'user') {
+		<div class="alert alert-error">Wrong name or password, please try again.</div>
+	% }
+	Name:<br>
+	%= text_field 'user'
+	<br>Password:<br>
+	%= password_field 'pass'
+	<br>
+	%= submit_button 'Login'
+% end

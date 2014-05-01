@@ -1,0 +1,6 @@
+% layout 'bootstrap';
+% if (my $msg = flash 'message') {
+	<div class="alert alert-success"><%= $msg %></div>
+% }
+Welcome <%= session 'user' %>.<br>
+%= link_to Logout => 'logout'
