@@ -4,3 +4,4 @@
 % }
 Welcome <%= session 'user' %>.<br>
 %= link_to Logout => 'logout'
+%= link_to 'Edit ratings' => '/'

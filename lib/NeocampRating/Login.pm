@@ -11,8 +11,11 @@ sub login {
 
 	my $user_id = $self->param('user') || '';
 	my $pass = $self->param('pass') || '';
-	return $self->render
-		unless $self->users->check($user_id, $pass);
+	
+	if(!$self->users->check($user_id, $pass)) {
+		$self->flash(message => "Wrong user name or password");
+		return $self->redirect_to('login')
+	}
 
 	$self->session(user => $user_id);
 	$self->flash(message => "Admin access granted");
@@ -23,14 +26,14 @@ sub logged_in {
 	my $self = shift;
 	return 1
 		if $self->session('user');
-	$self->redirect_to('rating');
+	$self->redirect_to('students');
 	return undef;
 }
 
 sub logout {
 	my $self = shift;
 	$self->session(expires => 1);
-	$self->redirect_to('rating');
+	$self->redirect_to('students');
 }
 
 1;
