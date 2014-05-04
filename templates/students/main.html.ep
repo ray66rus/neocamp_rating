@@ -2,6 +2,17 @@
 % if (my $msg = flash 'message') {
 	<div class="alert"><%= $msg %></div>
 % }
+
+% my $pager_control = begin
+<div class="pagination pagination-centered">
+<ul>
+% for(my $i=1;$i<=$pager->{last_page};$i++) {
+	%== '<li' . (($i == $pager->{current_page}) ? ' class="active" ': '') . qq|><a href="/?page=$i">$i</a></li>|
+% }
+</ul>
+</div>
+% end
+
 %= form_for '/save_ratings' => (method => 'POST') => begin
 % if(session 'user') {
 	%= link_to Logout => 'logout'
@@ -9,6 +20,7 @@
 % my ($name_order, $name_sort_class) = session('name_order') eq 'asc' ? ('desc', 'sorted-asc') : ('asc', 'sorted-desc'); $name_sort_class = '' if(session('sort_by') ne 'name');
 % my ($rating_order, $rating_sort_class) = session('rating_order') eq 'asc' ? ('desc', 'sorted-asc') : ('asc', 'sorted-desc'); $rating_sort_class = '' if(session('sort_by') eq 'name');
 
+%= $pager_control->()
 <table class="table table-striped table-bordered">
 <thead>
 	<tr>
@@ -20,7 +32,7 @@
 <thead>
 <tbody>
 % for(my $i=0;$i<@$students;$i++) {
-	% my $place = $i+1;
+	% my $place = $pager->{first_entry} + $i;
 	% my $student = $students->[$i];
 	<tr>
 		%== "<td>$place</td>"
@@ -34,8 +46,9 @@
 	</tr>
 % }
 </tbody>
+</table>
 % if(session 'user') {
 	%= submit_button 'Save ratings'
 % }
 % end
-</table>
+%= $pager_control->() 
