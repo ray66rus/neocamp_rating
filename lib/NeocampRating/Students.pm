@@ -3,7 +3,31 @@ use Mojo::Base 'Mojolicious::Controller';
 
 use constant PAGE_SIZE => 3;
 
-sub main {
+sub paged {
+	my $self = shift;
+
+	my $params = $self->_get_current_params;
+
+	my $resultset = $self->db->resultset('Student')->search(undef, {
+		order_by => { "-$params->{order_direction}" => $params->{order_by} },
+		rows => PAGE_SIZE,
+		page => $params->{page}
+	});
+
+	my @students = $resultset->all;
+	my $pager = $resultset->pager;
+
+	return $self->render('students/paged',
+		students => [@students],
+		pager => {
+			current_page => $pager->current_page,
+			first_entry => $pager->first,
+			last_page => $pager->last_page
+		}
+	);
+}
+
+sub _get_current_params {
 	my $self = shift;
 
 	my $order_by = defined($self->param('sort_by')) ?
@@ -19,21 +43,26 @@ sub main {
 	$self->session(sort_by => $order_by);
 	$self->session(page => $page);
 
-	my $resultset = $self->db->resultset('Student')->search(undef, {
-		order_by => { "-$order_direction" => $order_by },
-		rows => PAGE_SIZE,
-		page => $page
+	return {
+		order_by => $order_by,
+		order_direction => $order_direction,
+		page => $page,
+	}
+}
+
+sub all {
+	my $self = shift;
+
+	my $params = $self->_get_current_params;
+
+	my @students = $self->db->resultset('Student')->search(undef, {
+		order_by => { "-$params->{order_direction}" => $params->{order_by} },
 	});
 
-	my @students = $resultset->all;
-	my $pager = $resultset->pager;
-
-	return $self->render('students/main',
+	return $self->render('students/all',
 		students => [@students],
 		pager => {
-			current_page => $pager->current_page,
-			first_entry => $pager->first,
-			last_page => $pager->last_page
+			first_entry => 1,
 		}
 	);
 }
@@ -47,7 +76,7 @@ sub save_ratings {
 		my $rating = $self->param($student_id);
 		my $student = $self->db->resultset('Student')->search({id => $db_id})->update({rating => $rating});
 	}
-	return $self->redirect_to('students');
+	return $self->redirect_to($self->req->headers->referrer);
 }
 
 1;

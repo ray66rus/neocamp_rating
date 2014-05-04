@@ -21,7 +21,8 @@ sub startup {
 	my $r = $self->routes;
 
 	# Normal route to controller
-	$r->any('/')->to('students#main')->name('students');
+	$r->any('/')->to('students#paged')->name('students');
+	$r->any('/all')->to('students#all')->name('students');
 	$r->get('/login')->to('login#login_form');
 	$r->post('/login')->to('login#login');
 	my $logged_in = $r->under->to('login#logged_in');

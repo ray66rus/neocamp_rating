@@ -1,0 +1,18 @@
+% layout 'bootstrap';
+
+%= include 'students/header'
+
+% my $pager_control = begin
+<div class="pagination pagination-centered">
+<ul>
+% for(my $i=1;$i<=$pager->{last_page};$i++) {
+	%== '<li' . (($i == $pager->{current_page}) ? ' class="active" ': '') . qq|><a href="/?page=$i">$i</a></li>|
+% }
+<li><a href="/all">Show all</a></li>
+</ul>
+</div>
+% end
+
+%= $pager_control->()
+%= include 'students/list'
+%= $pager_control->() 

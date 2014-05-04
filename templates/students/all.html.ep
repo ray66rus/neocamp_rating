@@ -1,0 +1,15 @@
+% layout 'bootstrap';
+
+%= include 'students/header'
+
+% my $pager_control = begin
+<div class="pagination pagination-centered">
+<ul>
+<li><a href="/">Paged view</a></li>
+</ul>
+</div>
+% end
+
+%= $pager_control->()
+%= include 'students/list'
+%= $pager_control->()
