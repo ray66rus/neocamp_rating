@@ -3,7 +3,14 @@ use Mojo::Base 'Mojolicious::Controller';
 
 sub main {
 	my $self = shift;
-	my @students = $self->db->resultset('Student')->search(undef, { order_by => { -desc => 'rating' }});
+
+	my $order_by = defined($self->param('sort_by')) ? $self->param('sort_by') : 'rating';
+	my $order_key_name = $order_by . '_order';
+	my $order_direction = defined($self->param($order_key_name)) ? $self->param($order_key_name) : 'desc';
+
+	my @students = $self->db->resultset('Student')->search(undef, { order_by => { "-$order_direction" => $order_by }});
+	$self->session($order_key_name => $order_direction);
+	$self->session(sort_by => $order_by);
 	return $self->render('students/main', students => [@students]);
 }
 
