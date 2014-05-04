@@ -16,6 +16,7 @@
 		<th>&nbsp;</th>
 		<th>Name<a href="?sort_by=name&name_order=<%= $name_order %>" class="<%= $name_sort_class =%>"><span class="icon-arrow-down"></span><span class="icon-arrow-up"></span></a></th>
 		<th>Rating<a href="?sort_by=rating&rating_order=<%= $rating_order %>" class="<%= $rating_sort_class %>"><span class="icon-arrow-down"></span><span class="icon-arrow-up"></span></a></th>
+		<th>ID</th>
 	</tr>
 <thead>
 <tbody>
@@ -31,6 +32,7 @@
 		% } else {
 			%== '<td>' . $student->rating . '</td>'
 		% }
+		%== '<td>' . $student->pid . '</td>'
 	</tr>
 % }
 </tbody>
