@@ -17,6 +17,7 @@
 		<th>Name<a href="?sort_by=name&name_order=<%= $name_order %>" class="<%= $name_sort_class =%>"><span class="icon-arrow-down"></span><span class="icon-arrow-up"></span></a></th>
 		<th>Rating<a href="?sort_by=rating&rating_order=<%= $rating_order %>" class="<%= $rating_sort_class %>"><span class="icon-arrow-down"></span><span class="icon-arrow-up"></span></a></th>
 		<th>ID</th>
+		%== '<th>&nbsp;</th>' if(session 'user');
 	</tr>
 <thead>
 <tbody>
@@ -37,12 +38,18 @@
 			<td><%= $student->rating %></td>
 		% }
 		%== '<td>' . $student->pid . '</td>'
+		% if(session 'user') {
+			<td>
+				%= link_to 'Edit' => '/student/edit/' . $student->id, class => 'btn'
+				%= link_to 'Delete' => '/student/delete/' . $student->id, class => 'btn'
+			</td>
+		% } 
 	</tr>
 % }
 </tbody>
 </table>
 % if(session 'user') {
-	%= submit_button 'Save ratings'
+	%= submit_button 'Save ratings', class => 'btn'
 % }
 % end
 

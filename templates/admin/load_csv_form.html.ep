@@ -1,7 +1,7 @@
 % layout 'bootstrap';
 %= include 'header' 
 
-%= form_for load_csv => ( method => 'POST' ) => ( enctype => 'multipart/form-data' ) => (class => 'margin-top-20px') => begin
+%= form_for load_csv => (method => 'POST') => (enctype => 'multipart/form-data') => (class => 'margin-top-20px') => begin
 	%= label_for csv => 'Enter CSV file name:'
 	%= file_field 'csv_file', class => 'hidden'
 	%= tag 'div', class => 'input-append' => begin
@@ -20,5 +20,5 @@
 		});
 	% end
 	%= tag 'br'
-	%= submit_button 'Load'
+	%= submit_button 'Load', class => 'btn'
 % end

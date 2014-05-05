@@ -1,6 +1,7 @@
-% if(my $msg = flash('message')) {
+% for my $msg_data ([stash('message'), stash('message_type')], [flash('message'), flash('message_type')]) {
+	% my ($msg, $type) = @{$msg_data};
+	% next unless $msg;
 	% $msg =~ s/\n/<br>/g;
-	% my $type = flash('message_type');
 	% my $class = "alert";
 	% $class .= " alert-$type" if $type;
 	<div class="<%= $class %>"><%== $msg %></div>

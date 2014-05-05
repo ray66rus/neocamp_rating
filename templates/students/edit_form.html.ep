@@ -1,0 +1,35 @@
+% layout 'bootstrap';
+%= include 'header'
+
+%= tag 'h2' => (class => 'margin-top-20px') => ($student->id eq '' ? 'Add new student' : 'Edit student "' . $student->name . '" (' . $student->pid . ')')
+%= form_for $self->url_for => (method => 'POST') => (enctype => 'multipart/form-data') => begin
+	%= hidden_field referer => $referer
+	%= hidden_field id => $student->id
+	%= label_for name => 'Name'
+	%= text_field name => $student->name
+	%= label_for pid => 'ID'
+	%= text_field pid => $student->pid
+	%= label_for rating => 'Rating'
+	%= text_field rating => $student->rating
+	%= tag 'div' => begin
+		%= image '/img/avatars/' . ($student->img ? $student->img : "___noavatar___.png"), class => 'img-polaroid'
+		%= file_field 'img_file', class => 'hidden'
+		%= tag 'div', class => 'input-append bottom-aligned' => begin
+			%= text_field 'img_text' => $student->img, (class => 'input-large', disabled => 'disabled')
+			%= tag 'a', (id => 'file-selector', class => 'btn') => 'Browse'
+		% end
+
+		%= javascript begin
+			$('#file-selector').click(function() {
+				$('input[name=img_file]').click();
+			});
+			$('input[name=img_file]').change(function() {
+				var fileName = $(this).val();
+				fileName.match(/^.+\\(.+)/);
+				$('input[name=img_text]').val(RegExp.$1);
+			});
+		% end
+	%= end
+	%= tag 'br'
+	%= submit_button 'Save', class => 'btn'
+% end

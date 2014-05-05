@@ -5,3 +5,4 @@ a.sorted-asc span.icon-arrow-down { opacity: 1; }
 a.sorted-desc span.icon-arrow-up { opacity: 1; }
 .hidden { display: none; }
 .margin-top-20px { margin-top: 20px; }
+.bottom-aligned { margin-bottom: 0; vertical-align: bottom; }

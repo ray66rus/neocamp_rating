@@ -4,6 +4,7 @@
 Welcome <%= session 'user' %>.<br>
 %= tag ul => begin
 	%== '<li>' . link_to('Logout' => 'logout') . '</li>'
-	%== '<li>' . link_to('Edit ratings' => '/all') . '</li>'
+	%== '<li>' . link_to('Edit' => '/all?sort_by=name') . '</li>'
+	%== '<li>' . link_to('Add new student' => '/student/add') . '</li>'
 	%== '<li>' . link_to('Load CSV file' => '/load_csv') . '</li>'
 % end
