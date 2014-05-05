@@ -1,4 +1,4 @@
-img[src*="avatars"] { width: 140px; height: 140px; }
+img[src*="avatars"] { width: 140px; height: 140px; background-color: transparent; }
 span.icon-arrow-down ~ span.icon-arrow-up { margin-left: -7px; }
 a span.icon-arrow-down, a span.icon-arrow-up { opacity: 0.3; }
 a.sorted-asc span.icon-arrow-down { opacity: 1; }

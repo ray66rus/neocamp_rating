@@ -25,7 +25,7 @@
 	% my $student = $students->[$i];
 	<tr>
 		%== "<td>$place</td>"
-		%== "<td>" . (image 'img/avatars/' . $student->img, class => 'img-polaroid') . "</td>"
+		%== "<td>" . (image 'img/avatars/' . ($student->img ? $student->img : "___noavatar___.png"), class => 'img-polaroid') . "</td>"
 		%== '<td>' . $student->name . '</td>'
 		% if(session 'user') {
 			%== '<td>' . (input_tag 'student_' . $student->id => $student->rating) . '</td>'
