@@ -69,12 +69,34 @@ sub all {
 
 sub save_ratings {
 	my $self = shift;
-	$self->flash(message => 'Ratings saved', message_type => 'success');
+
 	my @students_ids = grep /^student_\d+/, $self->param;
+	my @error_msg = ();
 	for my $student_id (@students_ids) {
 		(my $db_id = $student_id) =~ s/^student_//;
-		my $rating = $self->param($student_id);
-		my $student = $self->db->resultset('Student')->search({id => $db_id})->update({rating => $rating});
+		my $student_record = $self->db->resultset('Student')->search({id => $db_id});
+		my $student = $student_record->single;
+		if(!$student) {
+			push @error_msg, "Can't find student with id $db_id";
+			next;
+		}
+		my $rating_input = $self->param($student_id);
+		my $rating_addition = 0;
+		if($rating_input =~ /^[\s\d\+\-]+$/) {
+			$rating_addition = eval $rating_input;
+			if($@) {
+				$rating_addition = 0;
+				push @error_msg, "Wrong input data for student " . $student->name . qq|: "$rating_input"|;
+			}
+			$student_record->update({rating => $student->rating + $rating_addition});
+		} else {
+			push @error_msg, "Wrong input data for student " . $student->name . qq|: "$rating_input"|;
+		}
+	}
+	if(@error_msg) {
+		$self->flash(message => join("\n", @error_msg), message_type => 'error');
+	} else {
+		$self->flash(message => 'Ratings saved', message_type => 'success');
 	}
 	return $self->redirect_to($self->req->headers->referrer);
 }

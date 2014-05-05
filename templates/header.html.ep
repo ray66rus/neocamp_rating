@@ -1,8 +1,9 @@
 % if(my $msg = flash('message')) {
+	% $msg =~ s/\n/<br>/g;
 	% my $type = flash('message_type');
 	% my $class = "alert";
 	% $class .= " alert-$type" if $type;
-	<div class="<%= $class %>"><%= $msg %></div>
+	<div class="<%= $class %>"><%== $msg %></div>
 % }
 
 % if(session 'user' and !(current_route 'admin')) {

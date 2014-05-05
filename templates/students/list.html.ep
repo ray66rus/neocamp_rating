@@ -28,9 +28,13 @@
 		%== "<td>" . (image 'img/avatars/' . ($student->img ? $student->img : "___noavatar___.png"), class => 'img-polaroid') . "</td>"
 		%== '<td>' . $student->name . '</td>'
 		% if(session 'user') {
-			%== '<td>' . (input_tag 'student_' . $student->id => $student->rating) . '</td>'
+			<td>
+				% my $input_name = 'student_' . $student->id;
+				%= label_for $input_name => $student->rating . ' + '
+				%= text_field $input_name => 0, onfocus => 'this.select()'
+			</td>
 		% } else {
-			%== '<td>' . $student->rating . '</td>'
+			<td><%= $student->rating %></td>'
 		% }
 		%== '<td>' . $student->pid . '</td>'
 	</tr>
