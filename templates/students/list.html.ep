@@ -34,7 +34,7 @@
 				%= text_field $input_name => 0, onfocus => 'this.select()'
 			</td>
 		% } else {
-			<td><%= $student->rating %></td>'
+			<td><%= $student->rating %></td>
 		% }
 		%== '<td>' . $student->pid . '</td>'
 	</tr>
