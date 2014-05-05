@@ -28,6 +28,8 @@ sub startup {
 	my $logged_in = $r->under->to('login#logged_in');
 	$logged_in->get('/protected')->to('login#protected');
 	$logged_in->post('/save_ratings')->to('students#save_ratings');
+	$logged_in->get('/load_csv')->to('admin#load_csv_form');
+	$logged_in->post('/load_csv')->to('admin#do_load_csv');
 	$r->get('/logout')->to('login#logout');
 }
 

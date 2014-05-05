@@ -1,0 +1,23 @@
+% layout 'bootstrap';
+
+%= form_for load_csv => begin
+	%= label_for csv => 'Enter CSV file name:'
+	%= file_field 'csv_file', class => 'hidden'
+	%= tag 'div', class => 'input-append' => begin
+		%= text_field 'csv_text', class => 'input-large'
+		%= tag 'a', (id => 'file-selector', class => 'btn') => 'Browse'
+	% end
+
+	%= javascript begin
+		$('#file-selector').click(function() {
+			$('input[name=csv_file]').click();
+		});
+		$('input[name=csv_file]').change(function() {
+			var fileName = $(this).val();
+			fileName.match(/^.+\\(.+)/);
+			$('input[name=csv_text]').val(RegExp.$1);
+		});
+	% end
+	%= tag 'br'
+	%= submit_button 'Load'
+% end

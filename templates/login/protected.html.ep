@@ -3,5 +3,8 @@
 	<div class="alert alert-success"><%= $msg %></div>
 % }
 Welcome <%= session 'user' %>.<br>
-%= link_to Logout => 'logout'
-%= link_to 'Edit ratings' => '/'
+%= tag ul => begin
+	%== '<li>' . link_to('Logout' => 'logout') . '</li>'
+	%== '<li>' . link_to('Edit ratings' => '/') . '</li>'
+	%== '<li>' . link_to('Load CSV file' => '/load_csv') . '</li>'
+% end
