@@ -19,7 +19,7 @@ sub login {
 
 	$self->session(user => $user_id);
 	$self->flash(message => "Admin access granted");
-	$self->redirect_to("protected");
+	$self->redirect_to("admin");
 }
 
 sub logged_in {
