@@ -29,7 +29,7 @@ sub startup {
 	$logged_in->get('/admin')->to('admin#main')->name('admin');
 	$logged_in->post('/save_ratings')->to('students#save_ratings');
 	$logged_in->get('/load_csv')->to('admin#load_csv_form');
-	$logged_in->post('/load_csv')->to('admin#do_load_csv');
+	$logged_in->post('/load_csv')->to('admin#parse_and_save_csv');
 	$r->get('/logout')->to('login#logout');
 }
 

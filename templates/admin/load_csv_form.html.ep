@@ -1,11 +1,11 @@
 % layout 'bootstrap';
 %= include 'header' 
 
-%= form_for load_csv => class => 'margin-top-20px' => begin
+%= form_for load_csv => ( method => 'POST' ) => ( enctype => 'multipart/form-data' ) => (class => 'margin-top-20px') => begin
 	%= label_for csv => 'Enter CSV file name:'
 	%= file_field 'csv_file', class => 'hidden'
 	%= tag 'div', class => 'input-append' => begin
-		%= text_field 'csv_text', class => 'input-large'
+		%= text_field 'csv_text', class => 'input-large', disabled => 'disabled'
 		%= tag 'a', (id => 'file-selector', class => 'btn') => 'Browse'
 	% end
 
