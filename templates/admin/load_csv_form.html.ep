@@ -1,6 +1,7 @@
 % layout 'bootstrap';
+%= include 'header' 
 
-%= form_for load_csv => begin
+%= form_for load_csv => class => 'margin-top-20px' => begin
 	%= label_for csv => 'Enter CSV file name:'
 	%= file_field 'csv_file', class => 'hidden'
 	%= tag 'div', class => 'input-append' => begin

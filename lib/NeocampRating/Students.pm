@@ -69,7 +69,7 @@ sub all {
 
 sub save_ratings {
 	my $self = shift;
-	$self->flash(message => 'Ratings saved');
+	$self->flash(message => 'Ratings saved', message_type => 'success');
 	my @students_ids = grep /^student_\d+/, $self->param;
 	for my $student_id (@students_ids) {
 		(my $db_id = $student_id) =~ s/^student_//;

@@ -1,6 +1,5 @@
 % layout 'bootstrap';
-
-%= include 'students/header'
+%= include 'header'
 
 % my $pager_control = begin
 <div class="pagination pagination-centered">

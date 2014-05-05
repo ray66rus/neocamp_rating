@@ -1,7 +1,6 @@
 % layout 'bootstrap';
-% if (my $msg = flash 'message') {
-	<div class="alert alert-error"><%= $msg %></div>
-% }
+%= include 'header'
+
 %= form_for login => { method => 'POST' } => begin
 	% if (param 'user') {
 		<div class="alert alert-error">Wrong name or password, please try again.</div>

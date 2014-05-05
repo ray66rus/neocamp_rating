@@ -1,8 +1,0 @@
-% if (my $msg = flash('message')) {
-	<div class="alert"><%= $msg %></div>
-% }
-
-% if(session 'user') {
-	%= link_to Logout => '/logout'
-% }
-

@@ -1,0 +1,13 @@
+% if(my $msg = flash('message')) {
+	% my $type = flash('message_type');
+	% my $class = "alert";
+	% $class .= " alert-$type" if $type;
+	<div class="<%= $class %>"><%= $msg %></div>
+% }
+
+% if(session 'user' and !(current_route 'admin')) {
+	%= link_to Logout => '/logout'
+	&nbsp;
+	%= link_to 'Admin panel' => '/admin'
+% }
+

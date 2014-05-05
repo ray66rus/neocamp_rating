@@ -13,12 +13,12 @@ sub login {
 	my $pass = $self->param('pass') || '';
 	
 	if(!$self->users->check($user_id, $pass)) {
-		$self->flash(message => "Wrong user name or password");
+		$self->flash(message => "Wrong user name or password", message_type => 'error');
 		return $self->redirect_to('login')
 	}
 
 	$self->session(user => $user_id);
-	$self->flash(message => "Admin access granted");
+	$self->flash(message => "Admin access granted", message_type => 'success');
 	$self->redirect_to("admin");
 }
 

@@ -4,3 +4,4 @@ a span.icon-arrow-down, a span.icon-arrow-up { opacity: 0.3; }
 a.sorted-asc span.icon-arrow-down { opacity: 1; }
 a.sorted-desc span.icon-arrow-up { opacity: 1; }
 .hidden { display: none; }
+.margin-top-20px { margin-top: 20px; }
