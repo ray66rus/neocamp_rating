@@ -222,6 +222,6 @@ sub _load_avatar {
 	return 1;
 }
 
-sub avatars_path { return ($ENV{DB_FILE_PATH} || $FinBin::Bin) . '/../public/img/avatars/' }   
+sub avatars_path { return ($ENV{DB_FILE_PATH} || $FindBin::Bin) . '/../public/img/avatars/' }
 
 1;
