@@ -115,7 +115,8 @@ sub del {
 		return $self->redirect_to($self->req->headers->referrer);
 	}
 
-	$self->flash(message => 'Student "' . $student->name . "' (" . $student->pid . ") deleted", message_type => 'success');
+	unlink $self->avatars_path . $student->img;
+	$self->flash(message => 'Student "' . $student->name . '" (' . $student->pid . ') deleted', message_type => 'success');
 	$student_rec->delete_all;
 
 	return $self->redirect_to($self->req->headers->referrer);
@@ -186,7 +187,7 @@ sub save {
 			return $self->redirect_to($self->param('referer'));
 		}
 		if($updated_vals{img}) {
-			unlink(($ENV{DB_FILE_PATH} || $FinBin::Bin) . '/../public/img/avatars/' . $student->img);
+			unlink($self->avatars_path . $student->img);
 		} else {
 			delete $updated_vals{img};
 		}
@@ -216,9 +217,11 @@ sub _load_avatar {
 		return 0;
 	}
 
-	$filedata->move_to(($ENV{DB_FILE_PATH} || $FinBin::Bin) . '/../public/img/avatars/' . $filedata->filename);
+	$filedata->move_to($self->avatars_path . $filedata->filename);
 
 	return 1;
 }
+
+sub avatars_path { return ($ENV{DB_FILE_PATH} || $FinBin::Bin) . '/../public/img/avatars/' }   
 
 1;

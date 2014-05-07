@@ -41,7 +41,7 @@
 		% if(session 'user') {
 			<td>
 				%= link_to 'Edit' => '/student/edit/' . $student->id, class => 'btn'
-				%= link_to 'Delete' => '/student/delete/' . $student->id, class => 'btn'
+				%= tag 'button' => class => 'btn', data => {toggle => 'modal', target => '#modalDialog'} => onclick => "setDeleteData({id:'" . $student->id . "', name:'" . $student->name  . "', pid:'" . $student->pid . "'})" => 'Delete'
 			</td>
 		% } 
 	</tr>
@@ -52,4 +52,16 @@
 	%= submit_button 'Save ratings', class => 'btn'
 % }
 % end
+%= include 'dialog', title => 'Student delete confirmation', body => 'Are you really want to this student?', onclick => 'deleteCurrentStudent()'
 
+%= javascript begin
+	function deleteCurrentStudent(id) {
+		var id = $('#modalDialog').data('options').id;
+		setTimeout(function() { window.location = '/student/delete/' + id }, 600);
+	}
+	function setDeleteData(data) {
+		var dialog = $('#modalDialog');
+		dialog.data('options', data);
+		dialog.find('.modal-body').text('Are you really want to delete student "' + data.name + '" (' + data.pid + ')?');
+	}
+% end

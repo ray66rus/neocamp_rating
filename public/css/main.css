@@ -6,3 +6,16 @@ a.sorted-desc span.icon-arrow-up { opacity: 1; }
 .hidden { display: none; }
 .margin-top-20px { margin-top: 20px; }
 .bottom-aligned { margin-bottom: 0; vertical-align: bottom; }
+
+.modal.fade {
+	-webkit-transition: opacity 0.3s ease !important;
+	-moz-transition: opacity 0.3s ease !important;
+	-o-transition: opacity 0.3s ease !important;
+	transition: opacity 0.3s ease !important;
+	top: -100%;
+}
+.modal-backdrop, .modal-backdrop.fade.in {
+	opacity: .5;
+	filter: alpha(opacity=50);
+}
+.modal-body, .alert { white-space: pre-line; }
