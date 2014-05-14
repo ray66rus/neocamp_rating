@@ -1,0 +1,8 @@
+% layout 'bootstrap';
+
+<h2>
+	%= tag p => (class => 'text-error') => 'Hacking of this system is the capital offence and will be prosecuted according to the camp regulations.'
+</h2>
+<i>
+	%= tag p => (class => 'text-info') => 'Your attempt will be reported to the camp administration.'
+</i>
