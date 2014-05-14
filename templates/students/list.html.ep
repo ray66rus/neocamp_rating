@@ -9,6 +9,13 @@
 %	$name_sort_class = '';
 % }
 
+% my $rating2stars = begin
+	% my $rating = shift;
+	% my $multiplier = int($rating / 10);
+	% $multiplier = 7 if($multiplier > 7);
+	% return image('/img/star.png') x $multiplier;
+% end
+
 <table class="table table-striped table-bordered">
 <thead>
 	<tr>
@@ -17,6 +24,7 @@
 		<th>Name<a href="?sort_by=name&name_order=<%= $name_order %>" class="<%= $name_sort_class =%>"><span class="icon-arrow-down"></span><span class="icon-arrow-up"></span></a></th>
 		<th>Rating<a href="?sort_by=rating&rating_order=<%= $rating_order %>" class="<%= $rating_sort_class %>"><span class="icon-arrow-down"></span><span class="icon-arrow-up"></span></a></th>
 		<th>ID</th>
+		<th>&nbsp;</th>
 		%== '<th>&nbsp;</th>' if(session 'user');
 	</tr>
 <thead>
@@ -38,6 +46,7 @@
 			<td><%= $student->rating %></td>
 		% }
 		%== '<td>' . $student->pid . '</td>'
+		<td><%== $rating2stars->($student->rating) %></td>
 		% if(session 'user') {
 			<td>
 				%= link_to 'Edit' => '/student/edit/' . $student->id, class => 'btn'
