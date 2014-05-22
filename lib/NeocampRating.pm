@@ -13,6 +13,8 @@ sub startup {
 	my $self = shift;
 
 	$self->helper(db => sub { $self->app->schema });
+	my $dbh = $self->app->schema->storage->dbh;
+	$dbh->{sqlite_unicode} = 1;
 
 	$self->secrets(['bang bang and production']);
 	$self->helper(users => sub { state $user = NCRUser->new });
