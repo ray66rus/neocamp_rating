@@ -11,7 +11,7 @@
 
 % my $rating2stars = begin
 	% my $rating = shift;
-	% my $multiplier = int($rating / 10);
+	% my $multiplier = ($rating ? 1 : 0) + int(($rating - 1 ) / 3);
 	% $multiplier = 7 if($multiplier > 7);
 	% return image('/img/star.png') x $multiplier;
 % end
